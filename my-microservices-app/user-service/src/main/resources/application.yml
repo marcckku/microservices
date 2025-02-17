@@ -1,0 +1,49 @@
+application:
+  name: user-service
+  title: User Service
+  version: 1.0.0
+
+server:
+  port: 8081
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: user-service  #name of the application
+    version: 1.0.0
+  main:
+    banner-mode: "console"
+    log-startup-info: true
+  banner:
+    location: classpath:banner.md
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    active: development
+
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+ ##instance:
+ ##  prefer-ip: true
+ ##  instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value} #instance ID
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

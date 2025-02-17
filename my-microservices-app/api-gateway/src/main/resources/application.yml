@@ -1,0 +1,47 @@
+application:
+  name: api-gateway
+  title: API Gateway #title of the application
+  version: 1.0.0     #version of the application
+
+server:
+  port: 8080
+  instance:
+   hostname: localhost
+ #  serviceUrl:
+ #    defaultZone: http://${server.instance.hostname}:${server.port}/eureka/ #reference to the Eureka server
+
+spring:
+  application:
+    name: api-gateway #name of the application
+    version: 1.0.0
+  main:
+    banner-mode: "console"
+    log-startup-info: true
+  banner:
+    location: classpath:banner.md
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    active: development
+
+eureka: #Eureka server configuration
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ #reference to the Eureka server
+
+cloud:
+  gateway: #API Gateway configuration
+    routes:
+      - id: user-service #id of the route
+        uri: lb://user-service #uri of the service
+        predicates:
+          - Path=/users/**
+      - id: order-service #id of the route
+        uri: lb://order-service #uri of the service
+        predicates:
+          - Path=/orders/**
+    discovery:
+      locator:
+        enabled: true
+        lower-case-service-id: true

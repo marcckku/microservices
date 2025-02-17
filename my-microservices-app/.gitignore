@@ -1,0 +1,10 @@
+# Default ignored files
+/shelf/
+/.idea/workspace.xml
+/.idea/
+/.vscode/
+/api-gateway/target/
+/order-service/target/
+/service-registry/target/
+/user-service/target/
+/service-registry/target/

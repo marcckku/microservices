@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"
+
+# Determine the directory of this script
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Execute Maven with the provided arguments
+exec "$DIR"/mvnw "$@"

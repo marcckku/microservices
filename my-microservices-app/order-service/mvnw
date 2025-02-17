@@ -1,0 +1,13 @@
+#!/bin/sh
+# Maven wrapper script for the order service
+
+# Use the Maven wrapper jar to execute Maven commands
+MAVEN_WRAPPER_JAR=./mvnw.jar
+
+if [ ! -f "$MAVEN_WRAPPER_JAR" ]; then
+  echo "Maven wrapper jar not found. Please ensure it is present in the current directory."
+  exit 1
+fi
+
+# Execute the Maven command
+exec java -cp "$MAVEN_WRAPPER_JAR" org.apache.maven.wrapper.MavenWrapperMain "$@"

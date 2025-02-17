@@ -1,0 +1,61 @@
+application:
+  name: order-service #serviceId o chiave di registrazione
+  title: Order Service
+  version: 1.0.0
+  instance_id: order-service-id #instance ID
+
+server:
+  port: 8082
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: order-service  #name of the application
+    version: 1.0.0
+  main:
+    banner-mode: "console"
+    log-startup-info: true
+  banner:
+    location: classpath:banner.md
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    active: development
+
+  datasource: #Database configuration
+    url:
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa: #JPA configuration
+    hibernate:
+      ddl-auto: update #update the schema
+    show-sql: true #show SQL queries
+
+  #cloud:
+  #  discovery:
+  #    client:
+  #      service-url:
+  #        defaultZone: http://localhost:8761/eureka/
+  #    #instance:
+  #    #  prefer-ip: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip: true
+    instance-id: ${spring.application.name} #instance ID
+    #instance-id: ${spring.application.name}:${spring.application.instance-id}:${random.value} #instance ID
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+# Local Url dato dalla Server Registry: http://host.docker.internal:8082/api/orders

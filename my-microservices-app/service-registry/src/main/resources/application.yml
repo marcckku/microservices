@@ -1,0 +1,71 @@
+application:
+  name: service-registry
+  title: Server Registry
+  version: 1.0.0
+
+server:
+  port: 8761
+  instance:
+    hostname: localhost
+    #serviceUrl:
+    #  defaultZone: http://${server.instance.hostname}:${server.port}/eureka/
+
+spring:
+  application:
+    name: service-registry  #custom name for eureka server
+    version: 1.0.0
+  main:
+    banner-mode: "console"
+    log-startup-info: true
+  banner:
+    location: classpath:banner.md
+  output:
+    ansi:
+      enabled: always
+
+  profiles:
+    active: development
+
+eureka: #Eureka server configuration
+  instance:
+    hostname: localhost
+    prefer-ip: true
+  client:
+    register-with-eureka: false #do not register with Eureka
+    fetch-registry: false #do not fetch the registry from Eureka
+    #enable-self-preservation: false #disable self-preservation
+    #wait-time-in-ms-when-sync-empty: 0 #wait time in milliseconds when the registry is empty
+    service-url:
+      defaultZone: http://${server.instance.hostname}:${server.port}/eureka/
+
+
+
+
+
+
+
+#configurazione del circuit breaker in Resilience4j
+#Un circuit breaker è un pattern di progettazione utilizzato per rilevare i guasti e prevenire il fallimento a cascata
+#nei sistemi distribuiti. Funziona in modo simile a un interruttore elettrico, interrompendo il flusso di richieste
+#quando rileva un numero eccessivo di errori.
+
+#resilience4j:
+#  circuitbreaker:
+#    configs:
+#      default:
+#        registerHealthIndicator: true #Registra un indicatore di salute per il circuit breaker.
+#        slidingWindowSize: 100  #La dimensione della finestra scorrevole è impostata a 100 chiamate.
+#        minimumNumberOfCalls: 10 #Il numero minimo di chiamate richieste per calcolare il tasso di errore è 10.
+#        permittedNumberOfCallsInHalfOpenState: 3 #Il numero di chiamate permesse nello stato "half-open" è 3.
+#        slidingWindowType: COUNT_BASED # La finestra scorrevole è basata sul conteggio delle chiamate.
+#        waitDurationInOpenState: 10000 #La durata di attesa nello stato "open" è di 10 secondi (10000 millisecondi).
+#        failureRateThreshold: 50 #La soglia del tasso di errore per aprire il circuit breaker è del 50%.
+#        eventConsumerBufferSize: 10 # La dimensione del buffer per il consumatore di eventi è 10
+#    instances:
+#      backendA: #Questa sezione definisce una configurazione specifica per l'istanza backendA.
+#        baseConfig: default
+#        waitDurationInOpenState: 5000
+#        failureRateThreshold: 50
+#        slowCallRateThreshold: 50
+#        slowCallDurationThreshold: 2000
+#        maxWaitDurationInHalfOpenState: 5000
