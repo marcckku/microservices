@@ -2,7 +2,6 @@ application:
   name: order-service #serviceId o chiave di registrazione
   title: Order Service
   version: 1.0.0
-  instance_id: order-service-id #instance ID
 
 server:
   port: 8082
@@ -35,27 +34,22 @@ spring:
       ddl-auto: update #update the schema
     show-sql: true #show SQL queries
 
-  #cloud:
-  #  discovery:
-  #    client:
-  #      service-url:
-  #        defaultZone: http://localhost:8761/eureka/
-  #    #instance:
-  #    #  prefer-ip: true
+  logging:  #logging configuration
+    level:
+      org.springframework.web: INFO
+      org.hibernate: ERROR
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/ #reference URL to registry on Eureka server
   instance:
-    prefer-ip: true
-    instance-id: ${spring.application.name} #instance ID
-    #instance-id: ${spring.application.name}:${spring.application.instance-id}:${random.value} #instance ID
+    prefer-ip-address: true
+   #instance-id: ${spring.application.name} #instance ID
 
 springdoc:
   api-docs:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
-
-# Local Url dato dalla Server Registry: http://host.docker.internal:8082/api/orders
+# Local Url dato dalla Server Registry nella sua Dashboard: http://host.docker.internal:8082/api/orders

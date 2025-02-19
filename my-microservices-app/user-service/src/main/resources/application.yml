@@ -1,5 +1,5 @@
 application:
-  name: user-service
+  name: user-service #serviceId o chiave di registrazione
   title: User Service
   version: 1.0.0
 
@@ -29,18 +29,23 @@ spring:
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  jpa:
+  jpa: #JPA configuration
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: update #update the schema
+    show-sql: true #show SQL queries
+
+  logging:  #logging configuration
+    level:
+      org.springframework.web: INFO
+      org.hibernate: ERROR
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
- ##instance:
- ##  prefer-ip: true
- ##  instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value} #instance ID
+      defaultZone: http://localhost:8761/eureka/ #reference URL to registry on Eureka server
+  instance:
+    prefer-ip-address: true
+   #instance-id: ${spring.application.name} #instance ID
 
 springdoc:
   api-docs:

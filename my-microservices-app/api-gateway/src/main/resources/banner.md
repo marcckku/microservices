@@ -18,22 +18,8 @@ Powered by Spring Boot ${spring-boot.version}
 Profile : ${spring.profiles.active}
 Porta   : ${server.port}
 ${application.title} URL : http://${server.instance.hostname}:${server.port}
-+ http://${server.instance.hostname}:${server.port}/actuator/
 + http://${server.instance.hostname}:${server.port}/swagger-ui.html
++ http://${server.instance.hostname}:${server.port}/actuator/
++ http://${server.instance.hostname}:${server.port}/actuator/info
++ http://${server.instance.hostname}:${server.port}/actuator/health
 + http://${server.instance.hostname}:${server.port}/v2/api-docs
-+ http://${server.instance.hostname}:${server.port}/h2-console
-+ http://${server.instance.hostname}:${server.port}/favicon.ico
-+ http://${server.instance.hostname}:${server.port}/health
-+ http://${server.instance.hostname}:${server.port}/info
-+ http://${server.instance.hostname}:${server.port}/metrics
-+ http://${server.instance.hostname}:${server.port}/loggers
-+ http://${server.instance.hostname}:${server.port}/heapdump
-+ http://${server.instance.hostname}:${server.port}/threaddump
-+ http://${server.instance.hostname}:${server.port}/env
-+ http://${server.instance.hostname}:${server.port}/configprops
-+ http://${server.instance.hostname}:${server.port}/mappings
-+ http://${server.instance.hostname}:${server.port}/beans
-+ http://${server.instance.hostname}:${server.port}/auditevents
-+ http://${server.instance.hostname}:${server.port}/jolokia
-+ http://${server.instance.hostname}:${server.port}/liquibase
-+ http://${server.instance.hostname}:${server.port}/flyway

@@ -1,3 +1,8 @@
+#
+# Questo file YAML configura il tuo API Gateway per gestire le richieste indirizzate
+# ai servizi utente e ordini, con funzionalità di bilanciamento del carico, registrazione
+# su Eureka e sicurezza di base disabilitata.
+#
 application:
   name: api-gateway
   title: API Gateway #title of the application
@@ -24,24 +29,48 @@ spring:
       enabled: always
   profiles:
     active: development
+  cloud:  #Spring Cloud Gateway configuration
+    gateway:
+      discovery: #Service discovery configuration\
+        locator: #Service locator configuration
+          enabled: true
+          lower-case-service-id: true #convert service id to lowercase
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE #uri of the service
+          predicates:
+            - Path=/users/**
+          filters:
+            - StripPrefix=1
+        - id: order-service
+          uri: lb://ORDER-SERVICE #uri of the service
+          predicates: #
+            - Path=/orders/**  #path of the route
+          filters:
+            - StripPrefix=1 #strip the prefix from the request
+    loadbalancer:
+      ribbon:
+        enabled: true
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG #log level for Spring Cloud Gateway
+
+security:
+  basic:
+    enabled: false #disable basic authentication
 
 eureka: #Eureka server configuration
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/ #reference to the Eureka server
+  instance:
+    prefer-ip-address: true #prefer IP address over hostname for registration on Eureka server and each instance of the service will have a unique IP address of Eureka Server.
 
-cloud:
-  gateway: #API Gateway configuration
-    routes:
-      - id: user-service #id of the route
-        uri: lb://user-service #uri of the service
-        predicates:
-          - Path=/users/**
-      - id: order-service #id of the route
-        uri: lb://order-service #uri of the service
-        predicates:
-          - Path=/orders/**
-    discovery:
-      locator:
-        enabled: true
-        lower-case-service-id: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #expose all endpoints
+  endpoint: #Actuator endpoints configuration
+    health:
+      show-details: always #show details of the health endpoint
