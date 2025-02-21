@@ -1,9 +1,9 @@
-package com.example.controller.dtos;
+package com.example.controller.dtos.request;
 
-public record UserDto(String name, String email)
+public record UserRequestDto(String name, String email)
 {
     //Controlli parametri dati dal frontend
-    public UserDto {
+    public UserRequestDto {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name User must not be null or Empty");
         }

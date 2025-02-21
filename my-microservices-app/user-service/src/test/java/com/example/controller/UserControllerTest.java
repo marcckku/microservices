@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.business.service.interfaces.UserBusinessService;
-import com.example.controller.dtos.UserDto;
+import com.example.controller.dtos.request.UserRequestDto;
 import com.example.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,34 +28,34 @@ class UserControllerTest {
     private MockMvc mockMvc;
 
     private User user;
-    private UserDto userDto;
+    private UserRequestDto userRequestDto;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
         user = new User(1L, "John Doe", "john.doe@example.com");
-        userDto = new UserDto("John Doe", "john.doe@example.com");
+        userRequestDto = new UserRequestDto("John Doe", "john.doe@example.com");
     }
 
     @Test
     void createUser() throws Exception {
-        when(service.registerUser(any(UserDto.class))).thenReturn(userDto);
+        when(service.registerUser(any(UserRequestDto.class))).thenReturn(userRequestDto);
         mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"John Doe\",\"email\":\"john.doe@example.com\"}"))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name").value(userDto.name()))
-                .andExpect(jsonPath("$.email").value(userDto.email()));
+                .andExpect(jsonPath("$.name").value(userRequestDto.name()))
+                .andExpect(jsonPath("$.email").value(userRequestDto.email()));
     }
 
     @Test
     void getUser() throws Exception {
-        when(service.findUserById(1L)).thenReturn(userDto);
+        when(service.findUserById(1L)).thenReturn(userRequestDto);
         mockMvc.perform(get("/api/users/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value(userDto.name()))
-                .andExpect(jsonPath("$.email").value(userDto.email()));
+                .andExpect(jsonPath("$.name").value(userRequestDto.name()))
+                .andExpect(jsonPath("$.email").value(userRequestDto.email()));
     }
 
     @Test
