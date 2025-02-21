@@ -1,6 +1,6 @@
 package com.example.entity.service;
 
-import com.example.business.rules.OrderNotFoundException;
+import com.example.business.exceptions.OrderNotFoundException;
 import com.example.entity.Order;
 import com.example.entity.repository.OrderRepository;
 import com.example.entity.service.interfaces.OrderEntityService;

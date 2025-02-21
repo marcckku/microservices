@@ -72,6 +72,12 @@ garantendo che tutte le dipendenze utilizzino versioni compatibili tra loro.
                 <artifactId>lombok</artifactId>
                 <version>1.18.34</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-mapstruct-binding -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-mapstruct-binding</artifactId>
+                <version>0.2.0</version>
+            </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>

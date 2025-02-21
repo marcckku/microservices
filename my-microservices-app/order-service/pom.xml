@@ -21,6 +21,7 @@
         <parent-spring-boot-version>3.2.0</parent-spring-boot-version>
         <parent-version-mapstruct-processor>1.5.5.Final</parent-version-mapstruct-processor>
         <parent-version-lombok>1.18.34</parent-version-lombok>
+        <parent-version-lombok-binding>0.2.0</parent-version-lombok-binding>
     </properties>
 
     <dependencies>
@@ -74,6 +75,11 @@
             <artifactId>mapstruct-processor</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-mapstruct-binding -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -101,6 +107,11 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${parent-version-lombok}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${parent-version-lombok-binding}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

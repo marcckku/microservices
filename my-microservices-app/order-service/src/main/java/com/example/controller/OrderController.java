@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.business.service.interfaces.OrderBusinessService;
-import com.example.controller.dtos.OrderDto;
+import com.example.controller.dtos.request.OrderRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -23,19 +23,19 @@ public class OrderController {
 
     @PostMapping
     @Operation(summary = "Create a new order")
-    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.addOrder(orderDto));
+    public ResponseEntity<OrderRequestDto> createOrder(@RequestBody OrderRequestDto orderRequestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.addOrder(orderRequestDto));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get order by ID")
-    public ResponseEntity<OrderDto> getOrder(@PathVariable Long id) {
+    public ResponseEntity<OrderRequestDto> getOrder(@PathVariable Long id) {
         return ResponseEntity.ok(service.findOrderById(id));
     }
 
     @GetMapping("/{id}/{userId}")
     @Operation(summary = "Get order by Order ID and User id")
-    public ResponseEntity<OrderDto> getOrder(@PathVariable Long id, @PathVariable Long userId) {
+    public ResponseEntity<OrderRequestDto> getOrder(@PathVariable Long id, @PathVariable Long userId) {
         return ResponseEntity.ok(service.findOrderByOrderIdAndUserId(id, userId));
     }
 
@@ -55,7 +55,7 @@ public class OrderController {
 
     @GetMapping
     @Operation(summary = "Get all orders")
-    public ResponseEntity<List<OrderDto>> getAllOrders() {
+    public ResponseEntity<List<OrderRequestDto>> getAllOrders() {
         return ResponseEntity.ok(service.findAllOrders());
     }
 }

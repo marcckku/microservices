@@ -1,6 +1,6 @@
 package com.example.business.service.interfaces;
 
-import com.example.controller.dtos.OrderDto;
+import com.example.controller.dtos.request.OrderRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +16,14 @@ import java.util.List;
 public interface OrderServiceClient {
 
     @PostMapping("/api/orders")
-    OrderDto addOrder(OrderDto order);
+    OrderRequestDto addOrder(OrderRequestDto order);
 
     @GetMapping("/api/orders/{id}")
-    OrderDto findOrderById(Long id);
+    OrderRequestDto findOrderById(Long id);
 
     @DeleteMapping("/api/orders/{id}")
     void deleteOrder(Long id);
 
     @GetMapping("/api/orders")
-    List<OrderDto> findAllOrders();
+    List<OrderRequestDto> findAllOrders();
 }
