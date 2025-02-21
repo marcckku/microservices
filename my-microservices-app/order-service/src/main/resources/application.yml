@@ -5,6 +5,8 @@ application:
 
 server:
   port: 8082
+  servlet:
+    context-path: /order-service # New Url "host:port/user-service" used from gateway to routing request to this service
   instance:
     hostname: localhost
 
@@ -12,9 +14,11 @@ spring:
   application:
     name: order-service  #name of the application
     version: 1.0.0
+
   main:
     banner-mode: "console"
     log-startup-info: true
+
   banner:
     location: classpath:banner.md
   output:
@@ -34,10 +38,18 @@ spring:
       ddl-auto: update #update the schema
     show-sql: true #show SQL queries
 
-  logging:  #logging configuration
-    level:
-      org.springframework.web: INFO
-      org.hibernate: ERROR
+
+  jackson:
+    serialization.indent_output: true
+  messages:
+    cache-duration: PT1S # 1 second, see the ISO 8601 standard
+
+logging:  #logging configuration
+  level:
+    com.example: INFO
+    org.springframework.web: INFO
+    org.hibernate: ERROR
+    org.hibernate.orm.jdbc.bind: TRACE #vedo anche i parametri passati nelle query
 
 eureka:
   client:
@@ -45,7 +57,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka/ #reference URL to registry on Eureka server
   instance:
     prefer-ip-address: true
-   #instance-id: ${spring.application.name} #instance ID
+    #instance-id: ${spring.application.name} #instance ID
 
 springdoc:
   api-docs:
