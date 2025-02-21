@@ -54,7 +54,7 @@ class UserBusinessServiceImplTest {
     }
 
     @Test
-    void registerUserEmailAlreadyExists() {
+    void registerUserEmailAlreadyExistsException() {
         when(entityService.existByEmail(userRequestDto.email())).thenReturn(true);
 
         assertThrows(EmailAlreadyExistsException.class, () -> service.registerUser(userRequestDto));
