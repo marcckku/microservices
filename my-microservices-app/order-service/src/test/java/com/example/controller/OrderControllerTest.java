@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.business.service.interfaces.OrderBusinessService;
-import com.example.controller.dtos.OrderDto;
+import com.example.controller.dtos.request.OrderRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,45 +28,45 @@ class OrderControllerTest {
 
     private MockMvc mockMvc;
 
-    private OrderDto orderDto;
+    private OrderRequestDto orderRequestDto;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(orderController).build();
-        orderDto = new OrderDto(1L, 2L, "Sample Order");
+        orderRequestDto = new OrderRequestDto(1L, 2L, "Sample Order");
     }
 
     @Test
     void createOrder() throws Exception {
-        when(service.addOrder(any(OrderDto.class))).thenReturn(orderDto);
+        when(service.addOrder(any(OrderRequestDto.class))).thenReturn(orderRequestDto);
         mockMvc.perform(post("/api/orders")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"id\":1, \"userId\":1, \"productDetails\":\"Sample Order\"}"))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(orderDto.id()))
-                .andExpect(jsonPath("$.userId").value(orderDto.userId()))
-                .andExpect(jsonPath("$.productDetails").value(orderDto.productDetails()));
+                .andExpect(jsonPath("$.id").value(orderRequestDto.id()))
+                .andExpect(jsonPath("$.userId").value(orderRequestDto.userId()))
+                .andExpect(jsonPath("$.productDetails").value(orderRequestDto.productDetails()));
     }
 
     @Test
     void getOrder() throws Exception {
-        when(service.findOrderById(1L)).thenReturn(orderDto);
+        when(service.findOrderById(1L)).thenReturn(orderRequestDto);
         mockMvc.perform(get("/api/orders/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(orderDto.id()))
-                .andExpect(jsonPath("$.userId").value(orderDto.userId()))
-                .andExpect(jsonPath("$.productDetails").value(orderDto.productDetails()));
+                .andExpect(jsonPath("$.id").value(orderRequestDto.id()))
+                .andExpect(jsonPath("$.userId").value(orderRequestDto.userId()))
+                .andExpect(jsonPath("$.productDetails").value(orderRequestDto.productDetails()));
     }
 
     @Test
     void getOrderByOrderIdAndUserId() throws Exception {
-        when(service.findOrderByOrderIdAndUserId(1L, 1L)).thenReturn(orderDto);
+        when(service.findOrderByOrderIdAndUserId(1L, 1L)).thenReturn(orderRequestDto);
         mockMvc.perform(get("/api/orders/1/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(orderDto.id()))
-                .andExpect(jsonPath("$.userId").value(orderDto.userId()))
-                .andExpect(jsonPath("$.productDetails").value(orderDto.productDetails()));
+                .andExpect(jsonPath("$.id").value(orderRequestDto.id()))
+                .andExpect(jsonPath("$.userId").value(orderRequestDto.userId()))
+                .andExpect(jsonPath("$.productDetails").value(orderRequestDto.productDetails()));
     }
 
     @Test
@@ -85,12 +85,12 @@ class OrderControllerTest {
 
     @Test
     void getAllOrders() throws Exception {
-        List<OrderDto> orders = List.of(orderDto);
+        List<OrderRequestDto> orders = List.of(orderRequestDto);
         when(service.findAllOrders()).thenReturn(orders);
         mockMvc.perform(get("/api/orders"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(orderDto.id()))
-                .andExpect(jsonPath("$[0].userId").value(orderDto.userId()))
-                .andExpect(jsonPath("$[0].productDetails").value(orderDto.productDetails()));
+                .andExpect(jsonPath("$[0].id").value(orderRequestDto.id()))
+                .andExpect(jsonPath("$[0].userId").value(orderRequestDto.userId()))
+                .andExpect(jsonPath("$[0].productDetails").value(orderRequestDto.productDetails()));
     }
 }

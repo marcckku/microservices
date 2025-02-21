@@ -1,9 +1,9 @@
-package com.example.controller.dtos;
+package com.example.controller.dtos.request;
 
 
-public record OrderDto
+public record OrderRequestDto
         (Long id, Long userId, String productDetails) {
-    public OrderDto {
+    public OrderRequestDto {
         if (id == null || id < 0) {
             throw new IllegalArgumentException("Id Order must not be null or negative");
         }

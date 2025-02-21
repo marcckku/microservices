@@ -1,20 +1,20 @@
 package com.example.business.service.interfaces;
 
-import com.example.controller.dtos.OrderDto;
+import com.example.controller.dtos.request.OrderRequestDto;
 import java.util.List;
 
 
 public interface OrderBusinessService {
 
-    OrderDto addOrder(OrderDto order);
+    OrderRequestDto addOrder(OrderRequestDto order);
 
-    OrderDto findOrderById(Long id);
+    OrderRequestDto findOrderById(Long id);
 
-    OrderDto findOrderByOrderIdAndUserId(Long id, Long userId);
+    OrderRequestDto findOrderByOrderIdAndUserId(Long id, Long userId);
 
     void deleteOrder(Long id);
 
     boolean existsOrder(Long id);
 
-    List<OrderDto> findAllOrders();
+    List<OrderRequestDto> findAllOrders();
 }

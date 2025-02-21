@@ -1,6 +1,7 @@
 package com.example.business.service;
 
-import com.example.controller.dtos.OrderDto;
+import com.example.business.exceptions.OrderNotFoundException;
+import com.example.controller.dtos.request.OrderRequestDto;
 import com.example.entity.Order;
 import com.example.entity.service.interfaces.OrderEntityService;
 import com.example.entity.mapper.OrderEntityMapper;
@@ -34,29 +35,70 @@ class OrderBusinessServiceImplTest {
 
     @Test
     void addOrder() {
-        OrderDto orderDto = new OrderDto(1L, 1L,  "Product Details");
+        OrderRequestDto orderRequestDto = new OrderRequestDto(1L, 1L,  "Product Details");
         Order order = new Order();
-        when(entityMapper.toOrder(orderDto)).thenReturn(order);
+        when(entityMapper.toOrder(orderRequestDto)).thenReturn(order);
         when(entityService.addOrder(order)).thenReturn(order);
-        when(entityMapper.toDTO(order)).thenReturn(orderDto);
+        when(entityMapper.toDTO(order)).thenReturn(orderRequestDto);
 
-        OrderDto result = orderBusinessService.addOrder(orderDto);
+        OrderRequestDto result = orderBusinessService.addOrder(orderRequestDto);
 
         assertNotNull(result);
         verify(entityService, times(1)).addOrder(order);
     }
 
     @Test
+    void findOrderByOrderIdAndUserId() {
+        Long orderId = 1L;
+        Long userId = 1L;
+        Order order = new Order();
+        OrderRequestDto orderRequestDto = new OrderRequestDto(orderId, userId, "Product Details");
+        when(entityService.findByOrderIdAndUserId(orderId, userId)).thenReturn(Optional.of(order));
+        when(entityMapper.toDTO(order)).thenReturn(orderRequestDto);
+
+        OrderRequestDto result = orderBusinessService.findOrderByOrderIdAndUserId(orderId, userId);
+
+        assertNotNull(result);
+        verify(entityService, times(1)).findByOrderIdAndUserId(orderId, userId);
+    }
+
+    @Test
+    void findOrderByOrderIdAndUserIdNotFoundException() {
+        Long orderId = 1L;
+        Long userId = 1L;
+        when(entityService.findByOrderIdAndUserId(orderId, userId)).thenReturn(Optional.empty());
+
+        OrderNotFoundException exception = assertThrows(OrderNotFoundException.class, () -> {
+            orderBusinessService.findOrderByOrderIdAndUserId(orderId, userId);
+        });
+
+        assertEquals("Error - Order not found by id '1' Order or User '1'", exception.getMessage());
+        verify(entityService, times(1)).findByOrderIdAndUserId(orderId, userId);
+    }
+
+    @Test
     void findOrderById() {
         Long id = 1L;
         Order order = new Order();
-        OrderDto orderDto = new OrderDto(1L, 1L,  "Product Details");
+        OrderRequestDto orderRequestDto = new OrderRequestDto(1L, 1L,  "Product Details");
         when(entityService.findOrderById(id)).thenReturn(Optional.of(order));
-        when(entityMapper.toDTO(order)).thenReturn(orderDto);
+        when(entityMapper.toDTO(order)).thenReturn(orderRequestDto);
 
-        OrderDto result = orderBusinessService.findOrderById(id);
+        OrderRequestDto result = orderBusinessService.findOrderById(id);
 
         assertNotNull(result);
+        verify(entityService, times(1)).findOrderById(id);
+    }
+    @Test
+    void findOrderByIdNotFoundException() {
+        Long id = 1L;
+        when(entityService.findOrderById(id)).thenReturn(Optional.empty());
+
+        OrderNotFoundException exception = assertThrows(OrderNotFoundException.class, () -> {
+            orderBusinessService.findOrderById(id);
+        });
+
+        assertEquals("Error - Order not found by id '1'", exception.getMessage());
         verify(entityService, times(1)).findOrderById(id);
     }
 
@@ -71,13 +113,22 @@ class OrderBusinessServiceImplTest {
     }
 
     @Test
+    void existsOrder() {
+        Long id = 1L;
+        when(entityService.existOrder(id)).thenReturn(true);
+        boolean result = orderBusinessService.existsOrder(id);
+        assertTrue(result);
+        verify(entityService, times(1)).existOrder(id);
+    }
+
+    @Test
     void findAllOrders() {
         List<Order> orders = List.of(new Order());
-        List<OrderDto> orderDtos = List.of(new OrderDto(1L, 1L,  "Product Details"));
+        List<OrderRequestDto> orderRequestDtos = List.of(new OrderRequestDto(1L, 1L,  "Product Details"));
         when(entityService.findAllOrders()).thenReturn(orders);
-        when(entityMapper.toListDTO(orders)).thenReturn(orderDtos);
+        when(entityMapper.toListDTO(orders)).thenReturn(orderRequestDtos);
 
-        List<OrderDto> result = orderBusinessService.findAllOrders();
+        List<OrderRequestDto> result = orderBusinessService.findAllOrders();
 
         assertNotNull(result);
         assertEquals(1, result.size());

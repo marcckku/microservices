@@ -1,6 +1,6 @@
 package com.example.entity.mapper;
 
-import com.example.controller.dtos.OrderDto;
+import com.example.controller.dtos.request.OrderRequestDto;
 import com.example.entity.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -11,12 +11,12 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface OrderEntityMapper {
 
-    OrderDto toDTO(Order order);
+    OrderRequestDto toDTO(Order order);
 
-    Order toOrder(OrderDto orderDTO);
+    Order toOrder(OrderRequestDto orderRequestDTO);
 
-    List<Order> toListOrders(List<OrderDto> dtos);
+    List<Order> toListOrders(List<OrderRequestDto> dtos);
 
-    List<OrderDto> toListDTO(List<Order> orders);
+    List<OrderRequestDto> toListDTO(List<Order> orders);
 
 }
