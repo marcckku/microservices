@@ -16,10 +16,6 @@ public class UserBaseException extends RuntimeException {
         this.status = status;
     }
 
-    public UserBaseException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
     public UserBaseException(String message, int status, Throwable ex) {
         super(message, ex);
         this.message = message;

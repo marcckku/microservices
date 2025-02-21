@@ -9,7 +9,6 @@ import com.example.entity.service.interfaces.UserEntityService;
 import com.example.entity.mapper.UserEntityMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,7 +25,7 @@ public class UserBusinessServiceImpl implements UserBusinessService {
         if (entityService.existByEmail(dto.email())) {
             String message = String.format("Error Registry User - Email \'%s\' already exists.", dto.email());
             log.info(message);
-            throw new EmailAlreadyExistsException(message, HttpStatus.BAD_REQUEST.value() );
+            throw new EmailAlreadyExistsException(message);
         }
         User user = mapper.toUser(dto);
         log.info("Success Registry User {}", user);
@@ -39,7 +38,7 @@ public class UserBusinessServiceImpl implements UserBusinessService {
                 .orElseThrow(() -> {
                     String message = String.format("Error User not found with id \'%s\'", id);
                     log.info(message);
-                    return new UserNotFoundException(message, HttpStatus.NOT_FOUND.value() );
+                    return new UserNotFoundException(message);
                 });
         log.info("Success found User by id {}", user);
         return mapper.toUserDTO(user);
