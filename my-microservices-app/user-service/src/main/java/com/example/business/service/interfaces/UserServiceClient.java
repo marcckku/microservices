@@ -1,6 +1,6 @@
 package com.example.business.service.interfaces;
 
-import com.example.controller.dtos.UserDto;
+import com.example.controller.dtos.request.UserRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface UserServiceClient {
 
     @PostMapping("/api/users")
-    UserDto registerUser(UserDto dto);
+    UserRequestDto registerUser(UserRequestDto dto);
 
     @GetMapping("/api/users/{id}")
-    UserDto findUserById(Long id);
+    UserRequestDto findUserById(Long id);
 
     @DeleteMapping("/api/users/{id}")
     void deleteUser(Long id);

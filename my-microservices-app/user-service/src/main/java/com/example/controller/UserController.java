@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.business.service.interfaces.UserBusinessService;
-import com.example.controller.dtos.UserDto;
+import com.example.controller.dtos.request.UserRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ public class UserController {
     @PostMapping
     @Operation(summary = "Create a new user", description = "Create a new user")
     @Tag(name = "Post", description = "POST methods of User APIs")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto dto) {
+    public ResponseEntity<UserRequestDto> createUser(@RequestBody UserRequestDto dto) {
         return new ResponseEntity<>(service.registerUser(dto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get user by ID")
-    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserRequestDto> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(service.findUserById(id), HttpStatus.OK);
     }
 
