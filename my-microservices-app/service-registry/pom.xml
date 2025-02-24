@@ -12,7 +12,6 @@
          Service Discovery: The process of finding services.
          Service Registration: The process of registering services to the registry.
      -->
-    <groupId>com.example</groupId>
     <artifactId>service-registry</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
@@ -75,13 +74,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <configuration>
+                    <mainClass>com.example.ServiceRegistryApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

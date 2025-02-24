@@ -1,10 +1,12 @@
 package com.example.entity.service.interfaces;
 
 import com.example.entity.Order;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
-
+@Repository
 public interface OrderEntityService {
 
    Order addOrder(Order order);

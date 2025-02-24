@@ -17,7 +17,7 @@ Port    : ${server.port}
 
 ${application.title} URL USER SERVICE :
 + http://${server.instance.hostname}:${server.port}/
-+ + http://${server.instance.hostname}:${server.port}/api/users
++ http://${server.instance.hostname}:${server.port}/api/users
 + http://${server.instance.hostname}:${server.port}/actuator
 + http://${server.instance.hostname}:${server.port}/actuator/health
 + http://${server.instance.hostname}:${server.port}/actuator/info
