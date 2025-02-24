@@ -42,3 +42,6 @@
 10. **Supporto Multi-Protocollo**
     Può gestire richieste su vari protocolli (HTTP, WebSocket, gRPC, ecc.) e convertirli se necessario, facilitando l'interoperabilità 
     tra i diversi microservizi.
+
+### Client Gateway on Java
+To create a client for an API Gateway in Java, you can use libraries like Spring Cloud Gateway or Netflix Zuul.

@@ -39,13 +39,13 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE #uri of the service
           predicates:
-            - Path=/users/**
+            - Path=/user-service/**  #- Path=/users/** ; Path gateway =[user-service] e api microservizio =[/api/users/1] => 'order-service/api/users/1'
           filters:
             - StripPrefix=1
         - id: order-service
           uri: lb://ORDER-SERVICE #uri of the service
           predicates: #
-            - Path=/orders/**  #path of the route
+            - Path=/order-service/**  #path of the route
           filters:
             - StripPrefix=1 #strip the prefix from the request
     loadbalancer:
@@ -53,7 +53,10 @@ spring:
         enabled: true
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG #log level for Spring Cloud Gateway
+    com.example: INFO
+    org.springframework.web: INFO
+    org.hibernate.orm.jdbc.bind: INFO #TRACE vedo anche i parametri passati nelle query
+    org.springframework.cloud.gateway: TRACE #log level for Spring Cloud Gateway
 
 security:
   basic:
@@ -70,7 +73,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*" #expose all endpoints
+        include: info,health  # "*" #expose all endpoints
   endpoint: #Actuator endpoints configuration
     health:
       show-details: always #show details of the health endpoint
+
+#Custom Properties
+#token:
+#  signing: ## SECRET_KEY=f621d0dBa91e2c270c0Ea38v59W996104eA6dm724942c90M
+#    key: ${SECRET_KEY}

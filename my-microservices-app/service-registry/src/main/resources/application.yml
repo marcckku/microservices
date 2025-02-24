@@ -20,7 +20,6 @@ spring:
   output:
     ansi:
       enabled: always
-
   profiles:
     active: development
 
@@ -35,3 +34,12 @@ eureka: #Eureka server configuration
     #wait-time-in-ms-when-sync-empty: 0 #wait time in milliseconds when the registry is empty
     service-url:
       defaultZone: http://${server.instance.hostname}:${server.port}/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health  # "*" #expose all endpoints
+  endpoint: #Actuator endpoints configuration
+    health:
+      show-details: always #show details of the health endpoint

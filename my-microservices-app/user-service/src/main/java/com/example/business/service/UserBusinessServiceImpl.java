@@ -7,18 +7,18 @@ import com.example.controller.dtos.request.UserRequestDto;
 import com.example.entity.User;
 import com.example.entity.service.interfaces.UserEntityService;
 import com.example.entity.mapper.UserEntityMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserBusinessServiceImpl implements UserBusinessService {
 
-    @Autowired
-    private UserEntityService entityService;
-    @Autowired
-    private UserEntityMapper mapper;
+    private final UserEntityService entityService;
+
+    private final UserEntityMapper mapper;
 
     @Override
     public UserRequestDto registerUser(UserRequestDto dto){

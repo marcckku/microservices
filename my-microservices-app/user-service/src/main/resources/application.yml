@@ -4,7 +4,7 @@ application:
   version: 1.0.0
 
 server:
-  port: 8081
+  port: 0 # 8081 . Zero means random port
   servlet:
     context-path: /user-service # New Url "host:port/user-service" used from gateway to routing request to this service
   instance:
@@ -14,11 +14,9 @@ spring:
   application:
     name: user-service  #name of the application
     version: 1.0.0
-
   main:
     banner-mode: "console"
     log-startup-info: true
-
   banner:
     location: classpath:banner.md
   output:
@@ -27,7 +25,7 @@ spring:
   profiles:
     active: development
 
-  datasource:
+  datasource: #Database configuration
     url:
     username:
     password:
@@ -37,7 +35,13 @@ spring:
     hibernate:
       ddl-auto: update #update the schema
     show-sql: true #show SQL queries
-
+    open-in-view: false
+    properties:
+      dialect: org.hibernate.dialect.MySQLDialect
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        highlight_sql: true
 
   jackson:
     serialization.indent_output: true
@@ -64,3 +68,12 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health  # "*" #expose all endpoints
+  endpoint: #Actuator endpoints configuration
+    health:
+      show-details: always #show details of the health endpoint

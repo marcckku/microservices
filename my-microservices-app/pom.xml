@@ -11,8 +11,8 @@ garantendo che tutte le dipendenze utilizzino versioni compatibili tra loro.
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
-        <relativePath/> <!-- lookup parent from repository 3.3.2, 3.4.0, 3.2.10 -->
+       <version>3.2.0</version> <!--  3.3.2, 3.4.0, 3.2.10 no compatible versions at the moment-->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.example</groupId>
@@ -72,7 +72,6 @@ garantendo che tutte le dipendenze utilizzino versioni compatibili tra loro.
                 <artifactId>lombok</artifactId>
                 <version>1.18.34</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-mapstruct-binding -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok-mapstruct-binding</artifactId>
@@ -105,6 +104,11 @@ garantendo che tutte le dipendenze utilizzino versioni compatibili tra loro.
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${parent-spring-boot-version}</version>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

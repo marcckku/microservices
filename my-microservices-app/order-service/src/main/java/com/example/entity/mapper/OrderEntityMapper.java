@@ -4,10 +4,11 @@ import com.example.controller.dtos.request.OrderRequestDto;
 import com.example.entity.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
+@Component
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface OrderEntityMapper {
 

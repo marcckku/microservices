@@ -2,6 +2,7 @@ package com.example.entity.mapper;
 
 import com.example.controller.dtos.request.UserRequestDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import com.example.entity.User;
 
@@ -12,6 +13,7 @@ public interface UserEntityMapper {
 
     UserRequestDto toUserDTO(User user);
 
+    @Mapping(target = "id", ignore = true)
     User toUser(UserRequestDto userRequestDTO);
 
     List<User> toListUsers(List<UserRequestDto> dtos);
